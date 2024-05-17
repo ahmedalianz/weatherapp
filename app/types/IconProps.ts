@@ -1,6 +1,5 @@
 interface IconProps {
-  width?: number;
-  height?: number;
+  size?: number;
   source: _SourceUri;
   color?: string;
 }

@@ -3,18 +3,14 @@ import {Image} from 'react-native';
 import {IconProps} from '../types';
 import {scaleSize} from '../utils';
 
-const Icon: FC<IconProps> = ({
-  width = 20,
-  height = 20,
-  source,
-  color = '#FFF',
-}) => {
+const Icon: FC<IconProps> = ({size = 20, source, color = '#FFF'}) => {
   return (
     <Image
       source={source}
+      resizeMode="contain"
       style={{
-        width: scaleSize(width),
-        height: scaleSize(height),
+        width: scaleSize(size),
+        height: scaleSize(size),
         tintColor: color,
       }}
     />

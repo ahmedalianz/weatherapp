@@ -1,6 +1,7 @@
 import React, {FC} from 'react';
-import {TouchableOpacity, Text} from 'react-native';
+import {TouchableOpacity} from 'react-native';
 import {ButtonProps} from '../types';
+import AppText from './AppText';
 import Icon from './Icon';
 
 const Button: FC<ButtonProps> = ({
@@ -12,8 +13,10 @@ const Button: FC<ButtonProps> = ({
 }) => {
   return (
     <TouchableOpacity style={containerStyle} onPress={onPress}>
-      {icon && <Icon source={icon} width={16} height={16} />}
-      <Text style={textStyle}>{title}</Text>
+      {icon && <Icon source={icon} size={16} />}
+      <AppText bold style={textStyle}>
+        {title}
+      </AppText>
     </TouchableOpacity>
   );
 };

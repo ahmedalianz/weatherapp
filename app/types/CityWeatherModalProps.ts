@@ -1,6 +1,7 @@
+import ICity from './ICity';
+
 interface CityWeatherModalProps {
-  onClose?: () => void;
-  onAdd?: (city: string) => void;
-  city?: string;
+  city?: ICity;
+  onDismiss: () => void;
 }
 export default CityWeatherModalProps;

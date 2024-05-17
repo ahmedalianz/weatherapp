@@ -1,34 +1,34 @@
-import React from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import React, {FC} from 'react';
+import {StyleSheet, View} from 'react-native';
 import {TouchableOpacity} from 'react-native-gesture-handler';
-import {scaleSize} from '../utils';
-import Icon from './Icon';
 import {icons, theme} from '../constants';
+import {CityLabelProps} from '../types';
+import {scaleSize} from '../utils';
+import AppText from './AppText';
+import Icon from './Icon';
 
-export default function CityLabel({city}) {
+const CityLabel: FC<CityLabelProps> = ({
+  city,
+  handleSelectCity,
+  onHistorical,
+}) => {
   return (
-    <TouchableOpacity
-      key={city}
-      //   onPress={() => handleCityClick(city)}
-      style={styles.cityItem}>
-      <View style={styles.location}>
-        <Icon
-          source={icons.location}
-          color={theme?.colors?.primary}
-          width={24}
-          height={24}
-        />
-        <Text>{city.name}</Text>
-      </View>
-      <Icon
-        source={icons.info}
-        color={theme?.colors?.primary}
-        width={24}
-        height={24}
-      />
-    </TouchableOpacity>
+    <View style={styles.cityItem}>
+      <TouchableOpacity
+        style={styles.location}
+        onPress={() => handleSelectCity && handleSelectCity(city)}>
+        <Icon source={icons.location} color={theme.colors.primary} size={24} />
+        <AppText bold style={styles.text}>
+          {city?.name}, {city?.sys?.country}
+        </AppText>
+      </TouchableOpacity>
+      <TouchableOpacity onPress={() => onHistorical && onHistorical(city)}>
+        <Icon source={icons.info} color={theme.colors.primary} size={24} />
+      </TouchableOpacity>
+    </View>
   );
-}
+};
+export default CityLabel;
 const styles = StyleSheet.create({
   cityItem: {
     paddingVertical: scaleSize(16),
@@ -40,5 +40,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flexDirection: 'row',
     gap: scaleSize(32),
+  },
+  text: {
+    color: theme.colors.black,
+    fontWeight: '900',
+    fontSize: scaleSize(14),
   },
 });
