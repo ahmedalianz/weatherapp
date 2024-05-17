@@ -1,8 +1,7 @@
 import {useEffect, useState} from 'react';
 import {API_KEY} from '../constants';
-import {HttpClient} from '../utils';
 import {ICity} from '../types';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import {HttpClient} from '../utils';
 import {_retrieveData, _storeData} from '../utils/storage';
 
 export default function useCallApi({cityName}: {cityName: string}) {
@@ -15,26 +14,20 @@ export default function useCallApi({cityName}: {cityName: string}) {
       return;
     }
     try {
-      console.log('call');
       setLoading(true);
       const result = await HttpClient<ICity>(
         `/data/2.5/weather?q=${cityName}&appid=${API_KEY}`,
       );
-      setData(result?.data);
+      const city = {...result?.data, time: new Date().toDateString()};
+      setData(city);
       const oldData = await _retrieveData('weatherData');
       if (oldData) {
         _storeData(
           'weatherData',
-          JSON.stringify([
-            ...JSON.parse(oldData),
-            {...result?.data, time: new Date()},
-          ]),
+          JSON.stringify([...JSON.parse(oldData), city]),
         );
       } else {
-        _storeData(
-          'weatherData',
-          JSON.stringify([{...result?.data, time: new Date()}]),
-        );
+        _storeData('weatherData', JSON.stringify([city]));
       }
 
       setLoading(false);

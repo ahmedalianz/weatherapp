@@ -7,7 +7,11 @@ import {GestureHandlerRootView} from 'react-native-gesture-handler';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
 import {Provider} from 'react-redux';
 import {theme} from './app/constants';
-import {CityHistoricalScreen, CityListScreen} from './app/screens';
+import {
+  CityDetailsScreen,
+  CityHistoricalScreen,
+  CityListScreen,
+} from './app/screens';
 import {store} from './app/store';
 
 const Stack = createStackNavigator();
@@ -21,6 +25,7 @@ const App = () => {
           <NavigationContainer>
             <Stack.Navigator screenOptions={{headerShown: false}}>
               <Stack.Screen name="CityList" component={CityListScreen} />
+              <Stack.Screen name="CityDetails" component={CityDetailsScreen} />
               <Stack.Screen
                 name="CityHistorical"
                 component={CityHistoricalScreen}

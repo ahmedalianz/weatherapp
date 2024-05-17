@@ -1,14 +1,25 @@
+import {RouteProp} from '@react-navigation/native';
 import React, {FC} from 'react';
-import {Image, StyleSheet, Pressable, View} from 'react-native';
+import {Image, StyleSheet, View} from 'react-native';
+import {CityWeatherModalItem, Screen} from '../components';
 import AppText from '../components/AppText';
-import {CityWeatherModalProps} from '../types';
-import {scaleSize} from '../utils';
 import {IMG_BASE_URL, theme} from '../constants';
-import {CityWeatherModalItem} from '../components';
+import {RootStackParamList} from '../types';
+import {scaleSize} from '../utils';
+import dayjs from 'dayjs';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
-const CityWeatherModal: FC<CityWeatherModalProps> = ({city, onDismiss}) => {
+type CityDetailsScreenRouteProp = RouteProp<RootStackParamList, 'CityDetails'>;
+
+interface CityDetailsScreenProps {
+  route: CityDetailsScreenRouteProp;
+}
+
+const CityDetailsScreen: FC<CityDetailsScreenProps> = ({route}) => {
+  const {city} = route.params;
+  const {bottom} = useSafeAreaInsets();
   return (
-    <Pressable style={styles.centeredView} onPress={onDismiss}>
+    <Screen title={''} hasBack>
       <View style={styles.modalView}>
         <AppText center style={styles.modalTitle}>
           {city?.name || ''}, {city?.sys?.country}
@@ -40,23 +51,27 @@ const CityWeatherModal: FC<CityWeatherModalProps> = ({city, onDismiss}) => {
           />
         </View>
       </View>
-    </Pressable>
+      <View style={[styles.bottomView, {marginBottom: scaleSize(20) + bottom}]}>
+        <AppText center style={styles.bottomViewText}>
+          Weather information for {city?.name} received on
+        </AppText>
+        <AppText center style={styles.bottomViewText}>
+          {city?.time ? dayjs(city?.time).format('DD.MM.YYYY - hh:mm') : ''}
+        </AppText>
+      </View>
+    </Screen>
   );
 };
 
-export default CityWeatherModal;
+export default CityDetailsScreen;
 const styles = StyleSheet.create({
-  centeredView: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: theme.colors.backdrop,
-  },
   modalView: {
+    alignSelf: 'center',
     backgroundColor: 'white',
     width: scaleSize(296),
     height: scaleSize(423),
-    borderRadius: 10,
+    borderRadius: scaleSize(10),
+    bottom: scaleSize(45),
     padding: scaleSize(32),
     elevation: 5,
     shadowColor: theme.colors.black,
@@ -79,4 +94,6 @@ const styles = StyleSheet.create({
     marginBottom: scaleSize(76),
   },
   content: {gap: scaleSize(7)},
+  bottomView: {marginTop: 'auto'},
+  bottomViewText: {fontSize: scaleSize(12), color: theme.colors.text},
 });

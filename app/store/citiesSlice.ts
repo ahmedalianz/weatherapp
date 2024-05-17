@@ -16,12 +16,9 @@ export const citiesSlice = createSlice({
         state.cities.push(action.payload);
       }
     },
-    removeCity: (state, action: PayloadAction<ICity['id']>) => {
-      state.cities = state.cities.filter(todo => todo.id !== action.payload);
-    },
   },
 });
 
-export const {addCity, removeCity} = citiesSlice.actions;
+export const {addCity} = citiesSlice.actions;
 
 export default citiesSlice.reducer;

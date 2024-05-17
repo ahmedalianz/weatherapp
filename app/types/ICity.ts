@@ -1,5 +1,5 @@
 interface ICity {
-  time?: Date;
+  time?: string;
   coord: Coord;
   weather: Weather[];
   base: string;

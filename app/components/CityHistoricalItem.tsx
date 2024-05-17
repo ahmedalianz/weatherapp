@@ -12,7 +12,6 @@ const CityHistoricalItem: FC<CityHistoricalItemProps> = ({
   degree,
   icon,
 }) => {
-  console.log(icon);
   return (
     <View style={styles.container}>
       <Image

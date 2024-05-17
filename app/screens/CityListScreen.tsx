@@ -1,14 +1,14 @@
 import BottomSheet, {BottomSheetBackdrop} from '@gorhom/bottom-sheet';
 import {BottomSheetDefaultBackdropProps} from '@gorhom/bottom-sheet/lib/typescript/components/bottomSheetBackdrop/types';
 import {StackNavigationProp} from '@react-navigation/stack';
-import React, {FC, useCallback, useMemo, useRef, useState} from 'react';
-import {Animated, FlatList, Modal, StyleSheet, View} from 'react-native';
+import React, {FC, useCallback, useMemo, useRef} from 'react';
+import {Animated, FlatList, StyleSheet, View} from 'react-native';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {useSelector} from 'react-redux';
 import {Button, CityLabel, Screen} from '../components';
 import AppText from '../components/AppText';
 import {SCREEN_HEIGHT, icons, theme} from '../constants';
-import {AddCity, CityWeatherModal} from '../modals';
+import {AddCity} from '../modals';
 import {RootState} from '../store';
 import {ICity, RootStackParamList} from '../types';
 import {scaleSize} from '../utils';
@@ -30,10 +30,9 @@ const CityListScreen: FC<CityListScreenProps> = ({navigation}) => {
     new Animated.Value(-bottomButtonSafeArea),
   ).current;
   const {cities} = useSelector((state: RootState) => state.citiesReducer);
-  const [selectedCity, setSelectedCity] = useState<ICity | null>(null);
 
   const handleSelectCity = (city: ICity) => {
-    setSelectedCity(city);
+    navigation.navigate('CityDetails', {city});
   };
   const onHistorical = (city: ICity) => {
     navigation.navigate('CityHistorical', {city});
@@ -74,15 +73,6 @@ const CityListScreen: FC<CityListScreenProps> = ({navigation}) => {
         />
       </View>
 
-      {selectedCity && (
-        <Modal transparent visible={!!selectedCity} animationType="fade">
-          <CityWeatherModal
-            city={selectedCity}
-            onDismiss={() => setSelectedCity(null)}
-          />
-        </Modal>
-      )}
-
       <BottomSheet
         keyboardBlurBehavior="restore"
         index={-1}
@@ -120,7 +110,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: scaleSize(16),
-    backgroundColor: theme.colors.white,
   },
 
   addButton: {
@@ -135,6 +124,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flexDirection: 'row',
     gap: scaleSize(16),
+    zIndex: 1,
   },
   addButtonText: {
     color: theme.colors.white,
