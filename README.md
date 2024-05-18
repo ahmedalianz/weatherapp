@@ -2,6 +2,8 @@
 
 A React Native application that allows users to maintain a list of cities to get the current weather status and historical weather data. This application uses the OpenWeatherMap API.
 
+[![Watch the video]](https://files.fm/u/3wbfmde4vn)
+
 ## Table of Contents
 
 1. [Features](#features)
