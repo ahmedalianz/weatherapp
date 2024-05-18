@@ -1,6 +1,5 @@
 import React, {FC} from 'react';
-import {StyleSheet, View} from 'react-native';
-import {TouchableOpacity} from 'react-native-gesture-handler';
+import {StyleSheet, TouchableOpacity, View} from 'react-native';
 import {icons, theme} from '../constants';
 import {CityLabelProps} from '../types';
 import {scaleSize} from '../utils';

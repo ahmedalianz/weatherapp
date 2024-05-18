@@ -1,12 +1,11 @@
 import React, {FC} from 'react';
-import {StyleSheet, View} from 'react-native';
+import {StyleSheet, TouchableOpacity, View} from 'react-native';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {icons, theme} from '../constants';
 import {AppBarProps} from '../types';
 import {scaleSize} from '../utils';
 import AppText from './AppText';
 import Icon from './Icon';
-import {TouchableOpacity} from 'react-native-gesture-handler';
 import {useNavigation} from '@react-navigation/native';
 
 const AppBar: FC<AppBarProps> = ({title, hasBack}) => {
