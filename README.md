@@ -5,15 +5,6 @@ A React Native application that allows users to maintain a list of cities to get
 ## Table of Contents
 
 1. [Features](#features)
-2. [Getting Started](#getting-started)
-3. [Prerequisites](#prerequisites)
-4. [Installation](#installation)
-5. [Usage](#usage)
-6. [API Endpoints](#api-endpoints)
-7. [Project Structure](#project-structure)
-8. [Testing](#testing)
-9. [Contributing](#contributing)
-10. [License](#license)
 
 ## Features
 
